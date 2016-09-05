@@ -5,14 +5,15 @@ import re
 import subprocess
 from zab_utils import lld_render
 
+cmd="/opt/xensource/bin/xe"
 hsRegExp=re.compile('''uuid \( RO\)\s+: (.+)\n\s+name-label \( RW\): ([\w-]+)''')
+vmRegExp=re.compile('''uuid \( RO\)\s+: (.+)\n\s+name-label \( RW\): ([-\w ]+)''')
 #srRegExp=re.compile('''uuid \( RO\)\s+:(.+)\n\s+name-label \( RW\): ([\w-]+).+type \( RO\): ([\w-]+)''')
 # skips two lines, between name-label and type
 srRegExp=re.compile('''uuid \( RO\)\s+: (.+)\n\s+name-label \( RW\): ([\s\w-]+)\n(.+\n){2}\s+type \( RO\): ([\w-]+)''')
 
 def hostListCreate(lis):
 
-    cmd="/opt/xensource/bin/xe"
     opt="host-list"
     command="%s %s" %(cmd,opt)
 
@@ -32,7 +33,6 @@ def hostListCreate(lis):
 
 def srListCreate(lis):
 
-    cmd="/opt/xensource/bin/xe"
     opt="sr-list"
     command="%s %s" %(cmd,opt)
 
@@ -51,6 +51,28 @@ def srListCreate(lis):
         print command
         return 4
 
+def vmsListCreate(lis,opt):
+
+    #opt="vm-list"
+    command="%s %s" %(cmd,opt)
+
+    out=subprocess.check_output(command.split())
+    for match in vmRegExp.finditer(out):
+        vmUUID=match.groups()[0]
+        vmLabel=match.groups()[1]
+        #print "%s %s" %(vmUUID,vmLabel)
+        # discard dom0
+        if vmLabel != "Control domain on host":
+            lis.append((vmUUID,vmLabel))
+
+    if len(lis) > 0:    
+        return 0
+    else:
+        # empty list or something weird 
+        print command
+        return 4
+
+
 if __name__=="__main__":
 
     lis=list()
@@ -61,6 +83,9 @@ if __name__=="__main__":
     elif sys.argv[1]=="sr":
        listFlag=srListCreate(lis)
        listLabels=("SRUUID","SRLABEL","SRTYPE")
+    elif sys.argv[1]=="vm": # only running vms
+       listFlag=vmsListCreate(lis,"vm-list power-state=running")
+       listLabels=("VMUUID","VMLABEL")
     else:
        print "Mandatory option missing or unknown, exiting"
        sys.exit(2)
