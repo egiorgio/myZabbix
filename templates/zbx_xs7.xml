@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>3.0</version>
-    <date>2016-09-05T10:16:38Z</date>
+    <date>2016-09-05T11:05:21Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -517,7 +517,7 @@
                             <dependencies/>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template XenServers:xenserver.hv.host.vCPUs[{#HOSTUUID}].abschange()}&gt;0</expression>
+                            <expression>{Template XenServers:xenserver.hv.host.runningvm[{#HOSTUUID}].abschange()}&gt;0</expression>
                             <name>Changed number of running VMs on {#HOSTLABEL}</name>
                             <url/>
                             <status>0</status>
@@ -864,96 +864,7 @@
                             <dependencies/>
                         </trigger_prototype>
                     </trigger_prototypes>
-                    <graph_prototypes>
-                        <graph_prototype>
-                            <name>Physical usage  on  {#SRLABEL} (P)</name>
-                            <width>900</width>
-                            <height>200</height>
-                            <yaxismin>0.0000</yaxismin>
-                            <yaxismax>0.0000</yaxismax>
-                            <show_work_period>0</show_work_period>
-                            <show_triggers>0</show_triggers>
-                            <type>2</type>
-                            <show_legend>1</show_legend>
-                            <show_3d>0</show_3d>
-                            <percent_left>0.0000</percent_left>
-                            <percent_right>0.0000</percent_right>
-                            <ymin_type_1>0</ymin_type_1>
-                            <ymax_type_1>0</ymax_type_1>
-                            <ymin_item_1>0</ymin_item_1>
-                            <ymax_item_1>0</ymax_item_1>
-                            <graph_items>
-                                <graph_item>
-                                    <sortorder>0</sortorder>
-                                    <drawtype>0</drawtype>
-                                    <color>00DD00</color>
-                                    <yaxisside>0</yaxisside>
-                                    <calc_fnc>2</calc_fnc>
-                                    <type>0</type>
-                                    <item>
-                                        <host>Template XenServers</host>
-                                        <key>xenserver.hv.sr.phyusage[{#SRUUID}]</key>
-                                    </item>
-                                </graph_item>
-                                <graph_item>
-                                    <sortorder>1</sortorder>
-                                    <drawtype>0</drawtype>
-                                    <color>F63100</color>
-                                    <yaxisside>0</yaxisside>
-                                    <calc_fnc>2</calc_fnc>
-                                    <type>0</type>
-                                    <item>
-                                        <host>Template XenServers</host>
-                                        <key>xenserver.hv.sr.sizetotal[{#SRUUID}]</key>
-                                    </item>
-                                </graph_item>
-                            </graph_items>
-                        </graph_prototype>
-                        <graph_prototype>
-                            <name>Virtual allocation on {#SRLABEL} (P)</name>
-                            <width>900</width>
-                            <height>200</height>
-                            <yaxismin>0.0000</yaxismin>
-                            <yaxismax>0.0000</yaxismax>
-                            <show_work_period>0</show_work_period>
-                            <show_triggers>0</show_triggers>
-                            <type>2</type>
-                            <show_legend>1</show_legend>
-                            <show_3d>0</show_3d>
-                            <percent_left>0.0000</percent_left>
-                            <percent_right>0.0000</percent_right>
-                            <ymin_type_1>0</ymin_type_1>
-                            <ymax_type_1>0</ymax_type_1>
-                            <ymin_item_1>0</ymin_item_1>
-                            <ymax_item_1>0</ymax_item_1>
-                            <graph_items>
-                                <graph_item>
-                                    <sortorder>0</sortorder>
-                                    <drawtype>0</drawtype>
-                                    <color>00DD00</color>
-                                    <yaxisside>0</yaxisside>
-                                    <calc_fnc>2</calc_fnc>
-                                    <type>0</type>
-                                    <item>
-                                        <host>Template XenServers</host>
-                                        <key>xenserver.hv.sr.valloc[{#SRUUID}]</key>
-                                    </item>
-                                </graph_item>
-                                <graph_item>
-                                    <sortorder>1</sortorder>
-                                    <drawtype>0</drawtype>
-                                    <color>F63100</color>
-                                    <yaxisside>0</yaxisside>
-                                    <calc_fnc>2</calc_fnc>
-                                    <type>0</type>
-                                    <item>
-                                        <host>Template XenServers</host>
-                                        <key>xenserver.hv.sr.phyusage[{#SRUUID}]</key>
-                                    </item>
-                                </graph_item>
-                            </graph_items>
-                        </graph_prototype>
-                    </graph_prototypes>
+                    <graph_prototypes/>
                     <host_prototypes/>
                 </discovery_rule>
             </discovery_rules>
